@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library PBL Presentation | 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* TIMER UI - FIXED CONTRAST */
+        #timerContainer { background: #ffffff; color: #020617; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 3px solid #3b82f6; z-index: 1000; }
+        @keyframes flicker { 0%, 100% { background-color: #ffffff; } 50% { background-color: #fca5a5; } }
+        .timer-warning { animation: flicker 1s infinite; border: 3px solid #ef4444 !important; color: #b91c1c !important; }
+        .timer-stop { background-color: #991b1b !important; color: #ffffff !important; border: 3px solid #f87171 !important; animation: none; }
+    </style>
+</head>
+<body onload="startTimer()">
+
+    <div id="timerContainer" class="fixed bottom-10 right-10 px-8 py-4 rounded-3xl flex items-center gap-4 transition-all">
+        <i class="fas fa-hourglass-start text-blue-600 text-2xl" id="timerIcon"></i>
+        <span id="displayTime" class="text-4xl font-black font-mono tracking-tighter">00:00</span>
+    </div>
+
+    <nav class="fixed w-full z-50 glass border-b border-slate-800/50 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <i class="fas fa-book-open text-blue-500 text-2xl"></i>
+            <span class="text-xl font-bold gradient-text">Smart Library System</span>
+        </div>
+        <div class="flex items-center gap-8 text-sm font-semibold text-slate-400">
+            <span class="hover:text-blue-400 transition cursor-pointer" onclick="document.getElementById('problem').scrollIntoView({behavior: 'smooth'});">PROBLEM</span>
+            <span class="hover:text-blue-400 transition cursor-pointer" onclick="document.getElementById('methodology').scrollIntoView({behavior: 'smooth'});">METHODOLOGY</span>
+            <span class="hover:text-blue-400 transition cursor-pointer" onclick="document.getElementById('results').scrollIntoView({behavior: 'smooth'});">RESULTS</span>
+            <span class="hover:text-blue-400 transition cursor-pointer" onclick="document.getElementById('team').scrollIntoView({behavior: 'smooth'});">TEAM</span>
+        </div>
+        <div class="text-sm text-slate-400">PBL-I | 2025-2026</div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-12 pt-48 pb-32 space-y-32">
+
+        <!-- SLIDE 1: TITLE -->
+        <section class="text-center space-y-6">
+            <h1 class="text-6xl md:text-7xl font-black leading-none tracking-tighter">
+                <span class="gradient-text">Smart Library System</span>
+            </h1>
+            <h2 class="text-3xl font-bold text-slate-300">
+                Using LLM-Enhanced Book Recommendation and Search
+            </h2>
+            <div class="pt-10 space-y-4 text-slate-400">
+                <p class="text-lg">Submitted to <span class="text-blue-400">Manipal University Jaipur</span></p>
+                <p class="text-sm">Towards the partial fulfillment for the Award of the Degree of</p>
+                <p class="text-xl font-bold text-white">BACHELORS OF TECHNOLOGY</p>
+                <p class="text-sm">In Computer Science and Engineering</p>
+                <p class="text-lg font-semibold text-blue-400 mt-8">2025-2026</p>
+            </div>
+            <div class="pt-12 glass p-8 rounded-3xl max-w-2xl mx-auto">
+                <p class="text-lg font-semibold text-white mb-2">By</p>
+                <p class="text-2xl font-bold gradient-text">Anant Goel</p>
+                <p class="text-sm text-slate-400 mt-2">Registration Number: 2427030702</p>
+                <p class="text-sm text-slate-500 mt-6">Under the guidance of</p>
+                <p class="text-lg font-semibold text-blue-400 mt-1">Mr. Bhawani Singh Rathore</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: INTRODUCTION -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Introduction</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-3xl border border-blue-500/30">
+                    <div class="flex items-center gap-4 mb-6">
+                        <i class="fas fa-exclamation-circle text-3xl text-blue-500"></i>
+                        <h3 class="text-2xl font-bold">Current Limitations</h3>
+                    </div>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex gap-3">
+                            <i class="fas fa-times text-blue-400 mt-1"></i>
+                            <span>Rigid keyword-based search systems</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-times text-blue-400 mt-1"></i>
+                            <span>Cannot understand natural language queries</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-times text-blue-400 mt-1"></i>
+                            <span>No semantic understanding or context awareness</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-times text-blue-400 mt-1"></i>
+                            <span>Zero recommendation capabilities</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass p-8 rounded-3xl border border-purple-500/30">
+                    <div class="flex items-center gap-4 mb-6">
+                        <i class="fas fa-lightbulb text-3xl text-purple-500"></i>
+                        <h3 class="text-2xl font-bold">Our Solution</h3>
+                    </div>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex gap-3">
+                            <i class="fas fa-check text-purple-400 mt-1"></i>
+                            <span>AI-powered natural language understanding</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-check text-purple-400 mt-1"></i>
+                            <span>Semantic search with cosine similarity</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-check text-purple-400 mt-1"></i>
+                            <span>Intelligent book recommendations (K-NN)</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-check text-purple-400 mt-1"></i>
+                            <span>Transparent, explainable results</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass p-8 rounded-3xl border border-green-500/20 bg-green-500/5">
+                <h3 class="text-xl font-bold mb-4 text-center">Example User Queries</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white/5 rounded-xl border border-slate-800">
+                        <p class="text-blue-400 italic text-sm">"Books like Harry Potter but more mature"</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border border-slate-800">
+                        <p class="text-purple-400 italic text-sm">"Beginner OS books"</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border border-slate-800">
+                        <p class="text-green-400 italic text-sm">"Astronauts in space survival stories"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: PROBLEM STATEMENT -->
+        <section id="problem" class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Problem Statement</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="glass p-10 rounded-[3.5rem] border border-blue-500/30">
+                <div class="flex items-center gap-6 mb-6">
+                    <div class="p-6 bg-blue-500/10 rounded-2xl">
+                        <i class="fas fa-search text-4xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold">Core Challenge</h3>
+                </div>
+                <p class="text-lg text-slate-300 leading-relaxed">
+                    Traditional library systems fail to understand conversational queries and semantic meaning. Users waste time searching for books when they can't recall exact titles or authors. There is a need for an <strong class="text-blue-400">AI-powered semantic search engine</strong> that interprets natural language, analyzes context, and delivers intelligent recommendations using <strong class="text-purple-400">LLM reasoning, cosine similarity, and K-NN algorithms</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: OBJECTIVES -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Project Objectives</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass p-6 rounded-2xl border-l-4 border-blue-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-xl font-black text-blue-500">01</div>
+                        <h3 class="text-lg font-bold">Natural Language Understanding</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Build conversational query interpretation using LLM-style reasoning</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-purple-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-xl font-black text-purple-500">02</div>
+                        <h3 class="text-lg font-bold">Semantic Similarity Engine</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Implement cosine similarity for meaning-based book retrieval</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-green-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-xl font-black text-green-500">03</div>
+                        <h3 class="text-lg font-bold">K-NN Recommendations</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Design nearest-neighbour system for similar book suggestions</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-blue-400">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-xl font-black text-blue-400">04</div>
+                        <h3 class="text-lg font-bold">Genre-Based Navigation</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Integrate categorization for easy theme-based browsing</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-purple-400">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-xl font-black text-purple-400">05</div>
+                        <h3 class="text-lg font-bold">Result Transparency</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Show matched keywords and similarity scores for trust</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-green-400">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-xl font-black text-green-400">06</div>
+                        <h3 class="text-lg font-bold">Lightweight Deployment</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Fast, efficient system for educational institutions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: LITERATURE REVIEW -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Literature Review</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass p-6 rounded-2xl border border-blue-500/20">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-robot text-xl text-blue-500"></i>
+                        <h3 class="text-lg font-bold">LLMs & Transformers</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">GPT and BERT models excel at semantic search and query understanding (Journal of ML Research)</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border border-purple-500/20">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-brain text-xl text-purple-500"></i>
+                        <h3 class="text-lg font-bold">Word2Vec Embeddings</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Mikolov et al. (2013) showed semantic word relationships through vector representations</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border border-green-500/20">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-chart-line text-xl text-green-500"></i>
+                        <h3 class="text-lg font-bold">Cosine Similarity</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">ACM research: Most efficient metric for text comparison in sparse vectors</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border border-blue-400/20">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-search text-xl text-blue-400"></i>
+                        <h3 class="text-lg font-bold">Semantic Search</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">IEEE Xplore: 70% accuracy improvement over keyword search</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: COMPARATIVE STUDY -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Comparative Study</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="glass p-10 rounded-[3.5rem] border border-blue-500/30">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-4 border-blue-500">
+                                <th class="p-4 text-lg font-bold text-blue-400">Feature</th>
+                                <th class="p-4 text-lg font-bold text-slate-300">Traditional Library Search</th>
+                                <th class="p-4 text-lg font-bold text-green-400">AI-Based Semantic Search</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr class="border-b border-slate-800">
+                                <td class="p-4 font-semibold">Search Mechanism</td>
+                                <td class="p-4">Exact keyword matching</td>
+                                <td class="p-4 text-green-400">Natural-language understanding</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-4 font-semibold">Handling Synonyms</td>
+                                <td class="p-4">Poor</td>
+                                <td class="p-4 text-green-400">Very strong</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-4 font-semibold">Understanding User Intent</td>
+                                <td class="p-4">Very limited</td>
+                                <td class="p-4 text-green-400">High</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-4 font-semibold">Context Awareness</td>
+                                <td class="p-4">Not available</td>
+                                <td class="p-4 text-green-400">Available through LLM reasoning</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-4 font-semibold">Recommendations</td>
+                                <td class="p-4">None</td>
+                                <td class="p-4 text-green-400">Available using nearest neighbour</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-4 font-semibold">Explainability</td>
+                                <td class="p-4">Not available</td>
+                                <td class="p-4 text-green-400">Shows similarity scores & keywords</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold">User Experience</td>
+                                <td class="p-4">Rigid and unintuitive</td>
+                                <td class="p-4 text-green-400">Flexible, conversational, modern</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: WORK PLANNING -->
+        <section id="methodology" class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Methodology</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass p-6 rounded-2xl border-l-4 border-blue-500 flex gap-4">
+                    <div class="text-2xl font-black text-blue-500">1</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Research & Analysis</h3>
+                        <p class="text-slate-400 text-sm">Studied AI retrieval methods, NLP techniques, and user behavior patterns</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-purple-500 flex gap-4">
+                    <div class="text-2xl font-black text-purple-500">2</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Dataset Creation</h3>
+                        <p class="text-slate-400 text-sm">Curated 200 books with preprocessing pipeline</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-green-500 flex gap-4">
+                    <div class="text-2xl font-black text-green-500">3</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">System Design</h3>
+                        <p class="text-slate-400 text-sm">Designed architecture with DFDs and workflow diagrams</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-blue-400 flex gap-4">
+                    <div class="text-2xl font-black text-blue-400">4</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Development</h3>
+                        <p class="text-slate-400 text-sm">Built backend (Python/Flask) and frontend interfaces</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-purple-400 flex gap-4">
+                    <div class="text-2xl font-black text-purple-400">5</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Testing</h3>
+                        <p class="text-slate-400 text-sm">Validated with diverse query types and edge cases</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-l-4 border-green-400 flex gap-4">
+                    <div class="text-2xl font-black text-green-400">6</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Documentation</h3>
+                        <p class="text-slate-400 text-sm">Comprehensive report with diagrams and results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: PROPOSED SOLUTION -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Proposed Solution</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="glass p-10 rounded-[3.5rem] border border-purple-500/30">
+                <h3 class="text-2xl font-bold mb-6 text-center">AI-Powered Semantic Library Search</h3>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-6 bg-blue-500/10 rounded-2xl border border-blue-500/30">
+                        <i class="fas fa-brain text-3xl text-blue-500 mb-3"></i>
+                        <h4 class="text-lg font-bold mb-2">LLM Reasoning</h4>
+                        <p class="text-slate-400 text-sm">Lightweight query interpretation without heavy APIs</p>
+                    </div>
+
+                    <div class="p-6 bg-purple-500/10 rounded-2xl border border-purple-500/30">
+                        <i class="fas fa-project-diagram text-3xl text-purple-500 mb-3"></i>
+                        <h4 class="text-lg font-bold mb-2">Cosine Similarity</h4>
+                        <p class="text-slate-400 text-sm">Vector-based semantic matching and ranking</p>
+                    </div>
+
+                    <div class="p-6 bg-green-500/10 rounded-2xl border border-green-500/30">
+                        <i class="fas fa-sitemap text-3xl text-green-500 mb-3"></i>
+                        <h4 class="text-lg font-bold mb-2">K-NN Recommendations</h4>
+                        <p class="text-slate-400 text-sm">Intelligent similar book suggestions</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>Transparent similarity scoring</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>Offline-capable deployment</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>Genre-based browsing</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>Fast & scalable</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: SYSTEM ARCHITECTURE -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">System Architecture</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Architecture Components -->
+                <div class="glass p-8 rounded-[3.5rem] border border-blue-500/30">
+                    <div class="grid md:grid-cols-2 gap-4 mb-8">
+                        <div class="p-4 bg-blue-500/10 rounded-xl border border-blue-500/30 flex items-center gap-3">
+                            <i class="fas fa-desktop text-blue-400"></i>
+                            <span class="text-sm">User Interface</span>
+                        </div>
+                        <div class="p-4 bg-purple-500/10 rounded-xl border border-purple-500/30 flex items-center gap-3">
+                            <i class="fas fa-cog text-purple-400"></i>
+                            <span class="text-sm">Query Processor</span>
+                        </div>
+                        <div class="p-4 bg-green-500/10 rounded-xl border border-green-500/30 flex items-center gap-3">
+                            <i class="fas fa-filter text-green-400"></i>
+                            <span class="text-sm">Preprocessing</span>
+                        </div>
+                        <div class="p-4 bg-blue-400/10 rounded-xl border border-blue-400/30 flex items-center gap-3">
+                            <i class="fas fa-vector-square text-blue-400"></i>
+                            <span class="text-sm">Vectorization</span>
+                        </div>
+                        <div class="p-4 bg-purple-400/10 rounded-xl border border-purple-400/30 flex items-center gap-3">
+                            <i class="fas fa-calculator text-purple-400"></i>
+                            <span class="text-sm">Similarity Engine</span>
+                        </div>
+                        <div class="p-4 bg-green-400/10 rounded-xl border border-green-400/30 flex items-center gap-3">
+                            <i class="fas fa-th text-green-400"></i>
+                            <span class="text-sm">K-NN Recommender</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-purple-500/10 rounded-2xl border-l-4 border-purple-500">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-3">
+                            <i class="fas fa-stream text-purple-500"></i>
+                            Processing Pipeline
+                        </h3>
+                        <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
+                            <div class="px-4 py-2 bg-white/5 rounded-full border border-blue-500/50 font-semibold">Query</div>
+                            <i class="fas fa-arrow-right text-blue-500"></i>
+                            <div class="px-4 py-2 bg-white/5 rounded-full border border-purple-500/50 font-semibold">Intent</div>
+                            <i class="fas fa-arrow-right text-purple-500"></i>
+                            <div class="px-4 py-2 bg-white/5 rounded-full border border-green-500/50 font-semibold">Clean</div>
+                            <i class="fas fa-arrow-right text-green-500"></i>
+                            <div class="px-4 py-2 bg-white/5 rounded-full border border-blue-400/50 font-semibold">Vectorize</div>
+                            <i class="fas fa-arrow-right text-blue-400"></i>
+                            <div class="px-4 py-2 bg-white/5 rounded-full border border-purple-400/50 font-semibold">Compare</div>
+                            <i class="fas fa-arrow-right text-purple-400"></i>
+                            <div class="px-4 py-2 bg-white/5 rounded-full border border-green-400/50 font-semibold">Rank & Recommend</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Execution Section -->
+                <div class="glass p-12 rounded-[3.5rem] border border-green-500/30 bg-gradient-to-br from-green-500/5 to-blue-500/5 flex flex-col items-center justify-center text-center">
+                    <div class="mb-6">
+                        <i class="fab fa-python text-7xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-green-400 mb-8 tracking-wider">LIVE EXECUTION</h3>
+                    <a href="https://github.com/anantgoel321-lab/AI-Powered-Smart-Library-System" target="_blank" rel="noopener noreferrer">
+                        <button class="px-10 py-4 bg-green-600 hover:bg-green-500 text-white font-bold text-lg rounded-full transition-all shadow-lg shadow-green-900/40 hover:shadow-green-500/50 hover:scale-105">
+                            VIEW CODE / DEMO
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10: RESULTS & SCREENSHOTS -->
+        <section id="results" class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Implementation Results</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-3xl border border-blue-500/30">
+                    <div class="mb-6 p-4 bg-blue-500/10 rounded-2xl flex items-center justify-center h-48">
+                        <i class="fas fa-sign-in-alt text-6xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Sign-In Page</h3>
+                    <p class="text-slate-400 text-sm">Secure user onboarding with authentication for personalized library access.</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl border border-purple-500/30">
+                    <div class="mb-6 p-4 bg-purple-500/10 rounded-2xl flex items-center justify-center h-48">
+                        <i class="fas fa-search text-6xl text-purple-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Book Search Interface</h3>
+                    <p class="text-slate-400 text-sm">Keyword-based results with genre filtering and semantic ranking display.</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl border border-green-500/30">
+                    <div class="mb-6 p-4 bg-green-500/10 rounded-2xl flex items-center justify-center h-48">
+                        <i class="fas fa-th-large text-6xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Library Dashboard</h3>
+                    <p class="text-slate-400 text-sm">Navigation tabs, search bar, and multi-genre filtering options for easy browsing.</p>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="glass p-10 rounded-[3.5rem] border border-green-500/30">
+                <h3 class="text-2xl font-bold mb-8 text-center">Performance Comparison</h3>
+                <div class="h-80">
+                    <canvas id="resultsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11: BIBLIOGRAPHY -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Key References</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="glass p-8 rounded-[3.5rem] border border-blue-500/30">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-blue-500">
+                        <p class="text-slate-300 text-sm"><strong class="text-blue-400">Pressman & Maxim:</strong> Software Engineering</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-purple-500">
+                        <p class="text-slate-300 text-sm"><strong class="text-purple-400">Russell & Norvig:</strong> AI: A Modern Approach</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-green-500">
+                        <p class="text-slate-300 text-sm"><strong class="text-green-400">Manning et al.:</strong> Information Retrieval</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-blue-400">
+                        <p class="text-slate-300 text-sm"><strong class="text-blue-400">Vaswani et al.:</strong> Attention Is All You Need</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-purple-400">
+                        <p class="text-slate-300 text-sm"><strong class="text-purple-400">Salton et al.:</strong> Vector Space Model</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-green-400">
+                        <p class="text-slate-300 text-sm"><strong class="text-green-400">Resources:</strong> GeeksforGeeks, React, Convex</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 12: CONCLUSION -->
+        <section class="space-y-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black gradient-text mb-4">Conclusion</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="glass p-10 rounded-[3.5rem] border border-green-500/30 bg-green-500/5">
+                <h3 class="text-2xl font-bold mb-6 text-center text-green-400">Key Achievements</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="flex gap-3">
+                        <i class="fas fa-check-circle text-2xl text-green-500 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold mb-1">Natural Language Queries</h4>
+                            <p class="text-slate-400 text-sm">Conversational search without heavy LLM APIs</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <i class="fas fa-check-circle text-2xl text-green-500 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold mb-1">70%+ Accuracy Boost</h4>
+                            <p class="text-slate-400 text-sm">Semantic search over keyword matching</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <i class="fas fa-check-circle text-2xl text-green-500 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold mb-1">Smart Recommendations</h4>
+                            <p class="text-slate-400 text-sm">K-NN for contextual book discovery</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <i class="fas fa-check-circle text-2xl text-green-500 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold mb-1">Lightweight System</h4>
+                            <p class="text-slate-400 text-sm">Runs on standard hardware offline</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-blue-500/10 rounded-2xl border border-blue-500/30">
+                    <h3 class="text-lg font-bold mb-4 text-blue-400">Future Scope</h3>
+                    <div class="grid md:grid-cols-3 gap-4 text-slate-300 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-arrow-right text-blue-500"></i>
+                            <span>Real GPT/BERT integration</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-arrow-right text-purple-500"></i>
+                            <span>User accounts & history</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-arrow-right text-green-500"></i>
+                            <span>Multi-language support</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-arrow-right text-blue-400"></i>
+                            <span>Collaborative filtering</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-arrow-right text-purple-400"></i>
+                            <span>Mobile app development</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-arrow-right text-green-400"></i>
+                            <span>Analytics dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL SLIDE: THANK YOU -->
+        <section id="team" class="text-center space-y-12">
+            <div class="glass p-12 rounded-[3.5rem] border border-purple-500/30">
+                <h2 class="text-6xl font-black gradient-text mb-8">Thank You!</h2>
+                <p class="text-2xl text-slate-300 mb-12">Questions & Discussion</p>
+                <div class="flex justify-center gap-12 text-slate-400">
+                    <div>
+                        <i class="fas fa-user text-3xl text-blue-500 mb-3"></i>
+                        <p class="font-semibold text-white">Anant Goel</p>
+                        <p class="text-sm">2427030702</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chalkboard-teacher text-3xl text-purple-500 mb-3"></i>
+                        <p class="font-semibold text-white">Guide</p>
+                        <p class="text-sm">Mr. Bhawani Singh Rathore</p>
+                    </div>
+                </div>
+                <div class="mt-12 pt-8 border-t border-slate-800">
+                    <p class="text-sm text-slate-500">Department of Computer Science and Engineering</p>
+                    <p class="text-sm text-slate-500">Manipal University Jaipur | 2025-2026</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        let timer = 0;
+        
+        function startTimer() {
+            setInterval(() => {
+                timer++;
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                document.getElementById('displayTime').textContent = 
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                if (timer >= 45 * 60 && !document.getElementById('timerContainer').classList.contains('timer-warning')) {
+                    document.getElementById('timerContainer').classList.add('timer-warning');
+                    document.getElementById('timerIcon').className = 'fas fa-exclamation-triangle text-2xl';
+                }
+                
+                if (timer >= 48 * 60) {
+                    document.getElementById('timerContainer').classList.add('timer-stop');
+                }
+            }, 1000);
+        }
+
+        // RESULTS CHART
+        const ctx = document.getElementById('resultsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Traditional Keyword Search', 'AI Semantic Search (Our Solution)'],
+                datasets: [{
+                    label: 'Search Accuracy (%)',
+                    data: [45, 89],
+                    backgroundColor: ['#1e293b', '#3b82f6'],
+                    borderRadius: 15,
+                    barThickness: 80
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { 
+                        display: true,
+                        labels: { color: '#94a3b8', font: { size: 14 } }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Retrieval Accuracy Comparison',
+                        color: '#f8fafc',
+                        font: { size: 18, weight: 'bold' }
+                    }
+                },
+                scales: { 
+                    y: { 
+                        beginAtZero: true, 
+                        max: 100,
+                        grid: { color: '#ffffff08' }, 
+                        ticks: { color: '#64748b', callback: (value) => value + '%' }
+                    },
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { color: '#64748b', font: { size: 12 } }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
